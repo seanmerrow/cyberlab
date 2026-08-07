@@ -127,6 +127,9 @@ select * from patients;
 
 ### See 1000 sample patients
 Use the [seed_patients.py](assets/seed_patients.py) Python script to seed 1000 patients into the database.
+
+> [!IMPORTANT]
+> Make sure you have the right password in the `seed_patients.py` file 
 ```
 # Install pip
 sudo dnf install -y python3-pip
