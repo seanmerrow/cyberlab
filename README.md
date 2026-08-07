@@ -128,8 +128,11 @@ select * from patients;
 ### See 1000 sample patients
 Use the [seed_patients.py](assets/seed_patients.py) Python script to seed 1000 patients into the database.
 ```
+# Install pip
+sudo dnf install -y python3-pip
+
 # Install required packages
-pip install faker mysql-connector-python
+sudo pip install faker mysql-connector-python
 
 # Run the seed script
 python seed_patients.py
