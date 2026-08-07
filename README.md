@@ -110,6 +110,11 @@ mariadb -u med_app_user -p patient_sim_db < sample_patient.sql
 ```
 View the tables and patient.
 ```
+# Log into mariadb, and switch into the patient_sim_db database
+mariadb -u med_app_user -p patient_sim_db
+```
+Enter the following commands at the database prompt. You should see the tables in the database, and the details of the `patients` table.
+```
 -- List all created tables
 SHOW TABLES;
 
