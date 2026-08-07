@@ -27,6 +27,21 @@ apt install openvswitch-switch
 
 
 ## Database server
+Enable SSH on the VM and open the service in the firewall
+```
+# Enable SSH
+sudo systemctl enable --now sshd
+
+# Add the service to the firewall
+sudo firewall-cmd --add-service=ssh --permanent
+sudo firewall-cmd --reload
+```
+You can now SSH into the VM rather than working from the VM's console within Proxmox
+```
+# SSH to the IP address of the VM
+ssh smerrow@192.168.86.43
+```
+
 Update packages on the VM, and install MariaDB. Then start it up and set it to start any time the VM boots up.
 
 ```
