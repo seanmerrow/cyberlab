@@ -113,13 +113,16 @@ View the tables and patient.
 # Log into mariadb, and switch into the patient_sim_db database
 mariadb -u med_app_user -p patient_sim_db
 ```
-Enter the following commands at the database prompt. You should see the tables in the database, and the details of the `patients` table.
+Enter the following commands at the database prompt. You should see the tables in the database, and the details of the `patients` table. You can then view the sample patient in the database.
 ```
 -- List all created tables
 SHOW TABLES;
 
 -- Inspect the structure of a specific table
 DESCRIBE patients;
+
+-- View the sample patient
+select * from patients;
 ```
 
 ### See 1000 sample patients
