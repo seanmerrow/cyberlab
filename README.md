@@ -61,6 +61,9 @@ sudo mariadb-secure-installation
 ```
 Follow the interactive prompts:
 
+> [!IMPORTANT]
+> Use the answers below, not what is recommended by the script. 
+
 - **Enter current password for root**: Press Enter (default is blank).
 - **Switch to unix_socket authentication**: Y.
 - **Change root password**: Y (set a strong administrative password).
