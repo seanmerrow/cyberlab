@@ -96,7 +96,14 @@ DESCRIBE patients;
 ```
 
 ### See 1000 sample patients
+Use the [seed_patients.py](assets/seed_patients.py) Python script to seed 1000 patients into the database.
+```
+# Install required packages
+pip install faker mysql-connector-python
 
+# Run the seed script
+python seed_patients.py
+```
 
 
 
