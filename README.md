@@ -132,7 +132,7 @@ Use the [seed_patients.py](assets/seed_patients.py) Python script to seed 1000 p
 sudo dnf install -y python3-pip
 
 # Install required packages
-sudo pip install faker mysql-connector-python
+pip install faker mysql-connector-python
 
 # Run the seed script
 python seed_patients.py
