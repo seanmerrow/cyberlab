@@ -77,7 +77,7 @@ Create the Medical Application Database & User
 # Log in as root
 sudo mariadb -u root -p
 ```
-Inside the MariaDB shell, create a dedicated database using utf8mb4 encoding (essential for handling complex medical records and international patient names) and a non-root application user:
+Inside the MariaDB shell, create a dedicated database using utf8mb4 encoding (essential for handling complex medical records and international patient names) and a non-root application user. You can simply paste the following lines into the database prompt.
 ```
 CREATE DATABASE patient_sim_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -90,7 +90,11 @@ EXIT;
 ```
 Confirm that the new application user can log into the database without root privileges:
 ```
+# Log into mariadb, and switch into the patient_sim_db database
 mariadb -u med_app_user -p patient_sim_db
+
+# If the prompt changed to the db name, then you can exit
+exit
 ```
 
 ### Create database schema
