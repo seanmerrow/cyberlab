@@ -41,7 +41,7 @@ def generate_patient_data():
         first_name = fake.first_name()
 
     return (
-        f"MRN-{fake.unique.numeric_number(length=6)}",
+        f"MRN-{fake.numerify(text='######')}",
         first_name,
         fake.last_name(),
         fake.date_of_birth(minimum_age=18, maximum_age=90),
