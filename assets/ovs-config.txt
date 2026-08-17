@@ -1,0 +1,34 @@
+auto lo
+iface lo inet loopback
+
+auto nic0
+iface nic0 inet manual
+        ovs_type OVSPort
+        ovs_bridge ovsbr0
+        ovs_options tag=40
+
+auto nic1
+iface nic1 inet manual
+        ovs_type OVSPort
+        ovs_bridge ovsbr0
+        ovs_options tag=5
+
+auto vlan5
+iface vlan5 inet static
+        address 192.168.5.5/24
+        ovs_type OVSIntPort
+        ovs_bridge ovsbr0
+        ovs_options tag=5
+
+auto vlan40
+iface vlan40 inet dhcp
+        ovs_type OVSIntPort
+        ovs_bridge ovsbr0
+        ovs_options tag=40
+
+auto ovsbr0
+iface ovsbr0 inet manual
+        ovs_type OVSBridge
+        ovs_ports nic0 nic1 vlan5 vlan40
+
+source /etc/network/interfaces.d/*
