@@ -2,9 +2,13 @@
 Cyber lab on Proxmox
 
 ## Proxmox installation
+1. [Download](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso) the **Proxmox VE 9.2 ISO Installer** image (ie. `proxmox-ve_9.2-1.iso`)
+2. [Copy it to a bootable thumb drive](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html#_instructions_for_windows)
+3. Boot the server to that drive to install Proxmox as the hypervisor
+4. [Log in](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html#_instructions_for_windows) to the Proxmox management interface
 
 
-## Disable Proxmox Enterprise repository
+### Disable Proxmox Enterprise repository
 1. Select the Proxmox host (ie. cyberlab)
 2. In the **Updates** menu, select **Repositories**
 3. Select the respository `https://enterprise.proxmox.com/debian/pve`
@@ -13,6 +17,9 @@ Cyber lab on Proxmox
 6. Select the respository `https://enterprise.proxmox.com/debian/ceph-squid`
 7. Click on **Disable**
 8. Click **Add** and select the **Ceph Squid No-Subscription** repository from the dropdown menu, then click **Add** again
+
+## Open vSwitch
+By default, Proxmox will use Linux bridge for networking. This section will help you install and configure Open vSwitch, which is needed for more advanced networking features, just as port mirroring.
 
 ### Add Open vSwitch
 Install openvswitch on the Proxmox host.
@@ -24,7 +31,16 @@ Install openvswitch on the Proxmox host.
 apt update
 apt install openvswitch-switch
 ```
+### Configuring Open vSwitch
+Switching from Linux bridge to Open vSwitch must be done carefully so you don't look network connectivity during the process. The high level process is as follows:
 
+1. Create a new **OVS Bridge** (ie. `ovsbr0`)
+2. Create a new **OVS IntPort** on the OVS bridge. Give it an IP address and mask (ie. `192.168.5.5/24`) and use **VLAN Tag** (ie. `5`)
+3. Add the same **VLAN Tag** to a physical port (ie. `nic1`) to add the port to the VLAN
+
+You should now be able to connect to that port, so you can complete the rest of the OVS configuration.
+
+Create another **OVS IntPort** for VLAN 40. You don't need to add an IP address and mask to it, so that it obtain its address via DHCP. Add the other port (ie. `nic0`) to VLAN 40.
 
 ## Database server
 Enable SSH on the VM and open the service in the firewall
@@ -125,7 +141,7 @@ DESCRIBE patients;
 select * from patients;
 ```
 
-### See 1000 sample patients
+### Seed 1000 sample patients
 Use the [seed_patients.py](assets/seed_patients.py) Python script to seed 1000 patients into the database.
 
 > [!IMPORTANT]
