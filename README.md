@@ -42,6 +42,8 @@ You should now be able to connect to that interface, so you can complete the res
 
 Create another **OVS IntPort** for VLAN 40. You don't need to add an IP address and mask to it, so that it obtains its address via DHCP. Add the other interface (ie. `nic0`) to VLAN 40.
 
+Be sure to click **Apply Configuration** when done making your chagnes in the UI.
+
 ![OVS configuration](assets/images/ovs-config.png)
 
 Alternately, you can get to this point by setting your `/etc/network/interfaces` file with the content in the example [interfaces file](assets/ovs-config.txt)
