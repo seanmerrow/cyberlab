@@ -36,11 +36,11 @@ Switching from Linux bridge to Open vSwitch must be done carefully so you don't 
 
 1. Create a new **OVS Bridge** (ie. `ovsbr0`)
 2. Create a new **OVS IntPort** on the OVS bridge. Give it an IP address and mask (ie. `192.168.5.5/24`) and use **VLAN Tag** (ie. `5`)
-3. Add the same **VLAN Tag** to a physical port (ie. `nic1`) to add the port to the VLAN
+3. Add the same **VLAN Tag** to a physical interface (ie. `nic1`) to add the interface to the VLAN
 
-You should now be able to connect to that port, so you can complete the rest of the OVS configuration.
+You should now be able to connect to that interface, so you can complete the rest of the OVS configuration.
 
-Create another **OVS IntPort** for VLAN 40. You don't need to add an IP address and mask to it, so that it obtain its address via DHCP. Add the other port (ie. `nic0`) to VLAN 40.
+Create another **OVS IntPort** for VLAN 40. You don't need to add an IP address and mask to it, so that it obtains its address via DHCP. Add the other interface (ie. `nic0`) to VLAN 40.
 
 ## Database server
 Enable SSH on the VM and open the service in the firewall
