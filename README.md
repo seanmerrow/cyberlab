@@ -35,7 +35,7 @@ apt install openvswitch-switch
 Switching from Linux bridge to Open vSwitch must be done carefully so you don't look network connectivity during the process. The high level process is as follows:
 
 1. Create a new **OVS Bridge** (ie. `ovsbr0`)
-2. Create a new **OVS IntPort** on the OVS bridge. Give it an IP address and mask (ie. `192.168.5.5/24`) and use **VLAN Tag** (ie. `5`)
+2. Create a new **OVS IntPort** on the OVS bridge. Give it an IP address and mask (ie. `192.168.5.5/24`) and use **VLAN Tag** (ie. `5`). 
 3. Add the same **VLAN Tag** to a physical interface (ie. `nic1`) to add the interface to the VLAN
 
 You should now be able to connect to that interface, so you can complete the rest of the OVS configuration.
@@ -51,6 +51,53 @@ Alternately, you can get to this point by setting your `/etc/network/interfaces`
 # Reload Proxmox network config after changing interfaces file
 ifreload -a
 ```
+## Router / firewall
+This lab uses pfSense as a router and firewall. It will have the following three interfaces.
+
+1. **Management**: Interface on the OOB management network, VLAN 5
+2. **VLAN Trunk**: Trunk (VLAN tagged) interface on VLANs 10, 20 and 30
+3. **Internet**: Internet-facing interface, VLAN 40
+
+### Install pfSense
+
+1. [Download](https://www.pfsense.org/download/) the pfSense image.
+2. Upload the image to Proxmox (Datacenter --> host --> local --> ISO images)
+3. In the Proxmox console, click **Create VM**
+4. **General** tab, enter a name (ie. `router-firewall`), click **Next**
+5. **OS** tab, select the pfSense image (ie. `netgate-installer...`), click **Next**
+6. **System** tab, click **Next**
+7. **Disks** tab, change the disk size to 16 GiB, click **Next**
+8. **CPU** tab, change the cores to 2, click **Next**
+9. **Memory** tab, change the memory to 4096 MiB, click **Next**
+10. **Network** tab, uncheck the firewall box, click **Next** (we'll configure networking later)
+11. **Confirm** tab, make sure the 'Start after create' checkbox is unchecked, click **Finish**
+
+Now configure the networking interfaces 
+
+1. Click on the new VM, then click on **Hardware**
+2. Double-click the one network device listed. Make sure 'Firewall' is unchecked. In the **VLAN Tag** box, enter `5`, for the OOB management VLAN
+3. Click **Add** --> **Network Device**. Make sure 'Firewall' is unchecked. Leave the **VLAN Tag** box empty. We'll configure all the VLANs in this trunk interface on the router
+4. Click **Add** --> **Network Device**. Make sure 'Firewall' is unchecked. In the **VLAN Tag** box, enter `40`, for the Internet-facing VLAN
+
+### Start pfSense
+
+1. Click the **Start** button at the top of the screen
+2. Click on **Console** so you can see the VM boot and enter the configuration menu
+3. Click **Accept** 
+4. Click **Install**
+5. Click **OK**
+6. Select your WAN interface. This is the Internet-facing interface of the router. You can click back to the **Hardware** page to see the MAC address of the interface in VLAN 40, then select that interface back in the console. If your Internet interface will use DHCP to get an address, leave it at the default. Otherwise set the static IP information as needed. This is not a trunk interface, so leave VLAN tagging disabled.
+8. Select your LAN interface. This is the OOB management interface of the router. Set the static IP address and mask (ie. `192.168.5.1/24`). Leave DHCP enabled and create a pool of addresses to lease to hosts on the network (ie. **Start**: `192.168.5.110`, **End**: `192.168.5.119`)
+9. Confirm the LAN and WAN interfaces and **Continue**. It will need Internet connectivity over the WAN interface.
+10. Select **Install CE**
+11. Select **Continue** at the screen for filesystem type and partitions, then select **OK**, then **OK**
+12. For the 'Version of pfSense CE to install', select the **Current stable version**, click **OK**
+13. Click **OK** when the installation is complete, then select **Reboot**
+14. Select `3` to reset the admin account and set the password
+
+You should now be able to access the pfSense GUI by pointing your browser to the LAN interface IP from a computer with access to the VLAN 5 network (ie. https://192.168.5.1)
+
+
 
 
 ## Database server
