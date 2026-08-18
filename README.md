@@ -152,6 +152,8 @@ Create VLAN interfaces and add IP configuration.
 
 ![VLAN Interfaces](assets/images/vlanint.png)
 
+You can now go to the **Status** --> **Interfaces** page to see the status of all the physical and VLAN interfaces. They should all show a status of `up` with their appropriate static IPv4 address configuration.
+
 ## Server and workstation installation
 This lab will use Fedora Workstation for both workstations and servers. 
 
