@@ -70,7 +70,7 @@ This lab uses pfSense as a router and firewall. It will have the following three
 8. **CPU** tab, change the cores to 2, click **Next**
 9. **Memory** tab, change the memory to 4096 MiB, click **Next**
 10. **Network** tab, uncheck the firewall box, click **Next** (we'll configure networking later)
-11. **Confirm** tab, make sure the 'Start after create' checkbox is unchecked, click **Finish**
+11. **Confirm** tab, make sure the 'Start after create' checkbox is __unchecked__, click **Finish**
 
 Now configure the networking interfaces 
 
@@ -117,6 +117,30 @@ Run through the initial configuration wizard:
 
 You should now see the Dashboard.
 
+### Add the pfSense trunk interface
+Configure the networking device on the pfSense that will be used as the VLAN Trunk.
+
+1. In the pfSense GUI, go to Interfaces --> Interface Assignments
+2. With the available Network port selected, click **add**
+3. Click on the name of the new interface (ie. OPT1)
+4. Change the description (name) of the interface to `VLAN_Trunk`
+5. Enable the interface by checking the box
+6. Click **Save** at the bottom of the screen, then **Apply Changes**
+
+Now add the VLANs to the interface.
+
+1. Go to Interfaces --> Interface Assignments -- VLANs
+2. Click **Add**
+3. Select the VLAN_Trunk interface (it may still show with the 'opt1' name)
+4. Enter the VLAN tag `10`
+5. For Description, enter `Radiology`
+6. Repeat steps 2-5 so you end up with the following three VLANs
+
+| Interface  | VLAN tag | Description         |
+|------------|----------|---------------------|
+| vtnet1     | 10       | Radiology           |
+| vtnet1     | 20       | Web Services        |
+| vtnet1     | 30       | Database Services   |
 
 ## Server and workstation installation
 This lab will use Fedora Workstation for both workstations and servers. 
