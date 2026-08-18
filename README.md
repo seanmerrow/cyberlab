@@ -160,7 +160,7 @@ By default, pfSense firewall will not allow traffic through the firewall.
 1. Go to **Firewall** --> **Rules**
 2. Select the VLAN 10 interface (the following should already be set as the defaults)
    - **Action**: pass
-   - **Interface**: vlan_trunk
+   - **Interface**: vlan10
    - **Address Family**: IPv4
    - **Protocol**: TCP
    - **Source**: Any
