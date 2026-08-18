@@ -95,6 +95,8 @@ Now configure the networking interfaces
 13. Click **OK** when the installation is complete, then select **Reboot**
 14. Select `3` to reset the admin account and set the password
 
+### Configure pfSense
+
 You should now be able to access the pfSense GUI by pointing your browser to the LAN interface IP from a computer with access to the VLAN 5 network.
 
 - **URL**: https://<lan_interface_ip>  (ie. https://192.168.5.1)
@@ -116,7 +118,16 @@ Run through the initial configuration wizard:
 You should now see the Dashboard.
 
 
-## Database server
+## Server and workstation installation
+This lab will use Fedora Workstation for both workstations and servers. 
+
+1. Download the **Fedora Everything** image
+2. Upload it into the **ISO Images** page of Proxmox
+3. Click the **Create VM** button at the top of the Proxmox GUI
+
+
+### Enable SSH
+
 Enable SSH on the VM and open the service in the firewall
 ```
 # Enable SSH
@@ -131,6 +142,8 @@ You can now SSH into the VM rather than working from the VM's console within Pro
 # SSH to the IP address of the VM
 ssh smerrow@192.168.86.43
 ```
+
+## Database server
 
 Update packages on the VM, and install MariaDB. Then start it up and set it to start any time the VM boots up.
 
