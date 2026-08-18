@@ -154,6 +154,21 @@ Create VLAN interfaces and add IP configuration.
 
 You can now go to the **Status** --> **Interfaces** page to see the status of all the physical and VLAN interfaces. They should all show a status of `up` with their appropriate static IPv4 address configuration.
 
+### Open firewall to allow traffic
+By default, pfSense firewall will not allow traffic through the firewall.
+
+1. Go to **Firewall** --> **Rules**
+2. Select the VLAN 10 interface (the following should already be set as the defaults)
+   - **Action**: pass
+   - **Interface**: vlan_trunk
+   - **Address Family**: IPv4
+   - **Protocol**: TCP
+   - **Source**: Any
+   - **Destination**: Any
+3. Click **Apply Changes**
+
+Repeat for the `VLAN20` and `VLAN30` interfaces.
+
 ## Server and workstation installation
 This lab will use Fedora Workstation for both workstations and servers. There will be three VMs and the initial installation and configuration is similar for all of them. They will each have two network interfaces: one OOB management interface in VLAN 5 and one data interface in the appropriate VLAN (see table below).
 
