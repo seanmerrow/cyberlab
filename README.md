@@ -32,7 +32,7 @@ apt update
 apt install openvswitch-switch
 ```
 ### Configuring Open vSwitch
-Switching from Linux bridge to Open vSwitch must be done carefully so you don't look network connectivity during the process. The high level process is as follows:
+Switching from Linux bridge to Open vSwitch must be done carefully so you don't lose network connectivity during the process. The high level process is as follows:
 
 1. Create a new **OVS Bridge** (ie. `ovsbr0`)
 2. Create a new **OVS IntPort** on the OVS bridge. Give it an IP address and mask (ie. `192.168.5.5/24`) and use **VLAN Tag** (ie. `5`). 
