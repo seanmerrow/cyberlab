@@ -207,7 +207,8 @@ Go through the installation wizard.
 
 1. Select the language then click **Next**
 2. **Installation Destination**: Click on the icon, leave everything on the **Device Selection** screen at the default, then click **Done**
-3. **Network & Hostname**: Click on the icon
+3. **Software Selection**: In the left pane, select `Fedora Workstation`
+4. **Network & Hostname**: Click on the icon
    - Click on the first interface, then click **Configure...**. On the **IPv4 Settings** tab, set as follows:
      - Change the method to Manual.
      - Click the **Add** button.
@@ -221,11 +222,13 @@ Go through the installation wizard.
      - Click **Save**
    - In the **Host Name** box, enter a hostname for the VM (ie. `radiology`, `webserver`, `database`), then click **Apply**
    - Click **Done**
-4. **Root Account**: Click to set the root password. Select 'Enable root account` and set the password. Click **Done**
-5. **User Creation**: Enter your full name, a username and password. Leave the boxes checked. Click **Done**
-6. Click **Begin Installation**
+5. **Root Account**: Click to set the root password. Select 'Enable root account` and set the password. Click **Done**
+6. **User Creation**: Enter your full name, a username and password. Leave the boxes checked. Click **Done**
+7. Click **Begin Installation**
+8. When the installation is complete, click **Reboot System**
 
 ### Enable SSH
+When the desktop environment comes up, log in and open the terminal window.
 
 Enable SSH on the VM and open the service in the firewall
 ```
@@ -244,9 +247,18 @@ ssh smerrow@192.168.86.43
 Now is a good time to create a snapshot of your VM in Proxmox. If it every gets in a bad state, you can roll back to this snapshot of a clean installation.
 
 ## Database server
+The database server will run MariaDB, which will hold a database of patient records. 
 
-Update packages on the VM, and install MariaDB. Then start it up and set it to start any time the VM boots up.
+### Prerequisite
+1. A Fedora Workstation VM has been created following the instructions in [Server and workstation installation](#server-and-workstation-installation)
+2. The VM should have the first interface in VLAN 5 and the second interface in VLAN 30, with IP addressing configured as per the [Server and workstation interface VLANs and IP configuration](#server-and-workstation-interface-vlans-and-ip-configuration)
 
+### Create the database
+1. SSH into the database VM IP address.
+```
+ssh smerrow@192.168.30.130
+```
+2. Update packages on the VM, and install MariaDB. Then start the database service and set it to start any time the VM boots up.
 ```
 # Install MariaDB
 sudo dnf upgrade --refresh -y
@@ -343,7 +355,16 @@ pip install faker mysql-connector-python
 # Run the seed script
 python seed_patients.py
 ```
+The database is now ready to be accessed on port 3306 by a web server or database management tool.
 
+## Web server
+The web server will run a web service and serve as the front end graphical user interface (GUI). It will connect to the backend database server to allow the viewing of patient records in a web browswer. 
+
+### Prerequisite
+1. A Fedora Workstation VM has been created following the instructions in [Server and workstation installation](#server-and-workstation-installation)
+2. The VM should have the first interface in VLAN 5 and the second interface in VLAN 20, with IP addressing configured as per the [Server and workstation interface VLANs and IP configuration](#server-and-workstation-interface-vlans-and-ip-configuration)
+
+### Create the database
 
 
 
