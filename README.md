@@ -136,11 +136,21 @@ Now add the VLANs to the interface.
 5. For Description, enter `Radiology`
 6. Repeat steps 2-5 so you end up with the following three VLANs
 
-| Interface  | VLAN tag | Description         |
-|------------|----------|---------------------|
-| vtnet1     | 10       | Radiology           |
-| vtnet1     | 20       | Web Services        |
-| vtnet1     | 30       | Database Services   |
+![VLANs](assets/images/vlans.png)
+
+Create VLAN interfaces and add IP configuration.
+
+1. Go to Interfaces --> Interface Assignments
+2. Click **Add** to add an interface for each VLAN
+3. For each one, click on the name, set the description (ie. `vlan10`), static IPv4 configuration and enable the interface. You should have the following interfaces when done.
+
+| Interface  | Static IP       | Description         |
+|------------|-----------------|---------------------|
+| vlan10     | 192.168.10.1/24 | Radiology           |
+| vlan20     | 192.168.20.1/24 | Web Services        |
+| vlan30     | 192.168.30.1/24 | Database Services   |
+
+![VLAN Interfaces](assets/images/vlanint.png)
 
 ## Server and workstation installation
 This lab will use Fedora Workstation for both workstations and servers. 
