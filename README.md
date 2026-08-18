@@ -155,12 +155,60 @@ Create VLAN interfaces and add IP configuration.
 You can now go to the **Status** --> **Interfaces** page to see the status of all the physical and VLAN interfaces. They should all show a status of `up` with their appropriate static IPv4 address configuration.
 
 ## Server and workstation installation
-This lab will use Fedora Workstation for both workstations and servers. 
+This lab will use Fedora Workstation for both workstations and servers. There will be three VMs and the initial installation and configuration is similar for all of them. They will each have two network interfaces: one OOB management interface in VLAN 5 and one data interface in the appropriate VLAN (see table below).
 
-1. Download the **Fedora Everything** image
-2. Upload it into the **ISO Images** page of Proxmox
+1. [Download](https://fedoraproject.org/misc/#everything) the **Fedora Everything** image for Intel and AMD x86_64
+2. Upload it into the **ISO Images** page of Proxmox (Datacenter --> host --> local --> ISO images)
 3. Click the **Create VM** button at the top of the Proxmox GUI
+4. **General** tab, enter a name (ie. `radiology-workstation, web-server, database`), click **Next**
+5. **OS** tab, select the Fedora image (ie. `Fedora_Everything...`), click **Next**
+6. **System** tab, click **Next**
+7. **Disks** tab, change the disk size to 16 GiB, click **Next**
+8. **CPU** tab, change the cores to 2, click **Next**
+9. **Memory** tab, change the memory to 4096 MiB, click **Next**
+10. **Network** tab, uncheck the firewall box. In the **VLAN Tag** box, enter `5`, for the OOB management VLAN (every VM in the lab has an interface in VLAN 5 for OOB management) click **Next** (we'll configure the 2nd network interface later)
+11. **Confirm** tab, make sure the 'Start after create' checkbox is __unchecked__, click **Finish**
 
+Now configure the 2nd network interface
+
+1. Click on the new VM, then click on **Hardware**
+2. Click **Add** --> **Network Device**. Make sure 'Firewall' is unchecked. In the **VLAN Tag** box, enter appropriate VLAN number for the data connection, as in the table below.
+
+### Server and workstation interface VLANs and IP configuration
+
+| VM                      | Int 1 VLAN  | Int 1 IP Address  | Int 2 VLAN  | Int 2 IP Address  | Int 2 Gateway   |
+|-------------------------|-------------|-------------------|-------------|-------------------|-----------------|
+| Radiology Workstation   | 5           | 192.168.5.110/24  | 10          | 192.168.10.110/24 | 192.168.10.1    |
+| Web Services            | 5           | 192.168.5.120/24  | 20          | 192.168.20.120/24 | 192.168.20.1    |
+| Database Services       | 5           | 192.168.5.130/24  | 30          | 192.168.30.130/24 | 192.168.30.1    |
+
+### Start the server and workstation VM
+
+1. Click the **Start** button at the top of the screen
+2. Click on **Console** so you can see the VM boot and enter the configuration menu
+3. Select `Install Fedora` from the menu
+
+Go through the installation wizard.
+
+1. Select the language then click **Next**
+2. **Installation Destination**: Click on the icon, leave everything on the **Device Selection** screen at the default, then click **Done**
+3. **Network & Hostname**: Click on the icon
+   - Click on the first interface, then click **Configure...**. On the **IPv4 Settings** tab, set as follows:
+     - Change the method to Manual.
+     - Click the **Add** button.
+     - Enter `192.168.5.x` for the address and `24` for the netmask. Do not enter a gateway address.
+     - Click **Save**
+   -  Click on the second interface, then click **Configure...**. On the **IPv4 Settings** tab, set as follows:
+     - Change the method to Manual.
+     - Click the **Add** button.
+     - Enter `192.168.x.x` for the address and `24` for the netmask. Enter `192.168.x.1` for the Gateway.
+     - Enter `8.8.8.8` for the DNS servers
+     - Click **Save**
+   - In the **Host Name** box, enter a hostname for the VM (ie. `radiology`, `webserver`, `database`), then click **Apply**
+   - Click **Done**
+4. **Root Account**: Click to set the root password. Select 'Enable root account` and set the password. Click **Done**
+5. **User Creation**: Enter your full name, a username and password. Leave the boxes checked. Click **Done**
+6. Click **Begin Installation**
 
 ### Enable SSH
 
@@ -178,6 +226,7 @@ You can now SSH into the VM rather than working from the VM's console within Pro
 # SSH to the IP address of the VM
 ssh smerrow@192.168.86.43
 ```
+Now is a good time to create a snapshot of your VM in Proxmox. If it every gets in a bad state, you can roll back to this snapshot of a clean installation.
 
 ## Database server
 
