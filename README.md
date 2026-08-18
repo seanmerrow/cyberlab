@@ -95,9 +95,25 @@ Now configure the networking interfaces
 13. Click **OK** when the installation is complete, then select **Reboot**
 14. Select `3` to reset the admin account and set the password
 
-You should now be able to access the pfSense GUI by pointing your browser to the LAN interface IP from a computer with access to the VLAN 5 network (ie. https://192.168.5.1)
+You should now be able to access the pfSense GUI by pointing your browser to the LAN interface IP from a computer with access to the VLAN 5 network.
 
+- **URL**: https://<lan_interface_ip>  (ie. https://192.168.5.1)
+- **Login**: `admin`
+- **Password**: the password you set in step 14 above
 
+Run through the initial configuration wizard:
+
+- **Hostname**: pfsense (of some other name of your choosing, such as `router` or `firewall`)
+- **Domain**: cyberlab.com
+- Leave DNS configurations as is
+- **Time server hostname**: leave at default or use `north-america.pool.ntp.org`
+- **Timezone**: Set to your timezone (ie. `America/New_York`)
+- **WAN Interface**: leave default of using DHCP and click Next
+- **LAN Interface**: lIt should already be set to what you configured during installation (ie. `192.168.5.1/24`). Click Next
+- **Admin Password**: You did this in step 14 above. Click next.
+- Click **Reload**, then click **Finish**
+
+You should now see the Dashboard.
 
 
 ## Database server
