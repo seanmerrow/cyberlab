@@ -156,6 +156,18 @@ Create VLAN interfaces and add IP configuration.
 
 You can now go to the **Status** --> **Interfaces** page to see the status of all the physical and VLAN interfaces. They should all show a status of `up` with their appropriate static IPv4 address configuration.
 
+### Enable DHCP for client workstations
+Client workstations, such as the Radiology workstation, does not require a static IP address because nobody will be connecting to it. This is unlike the web server, database server and gateway IP addresses. In this section, we configure a DHCP server on VLAN 10 of the router.
+
+1. Go to **Services** --> **DHCP Server**
+2. Select the VLAN 10 interface
+   - Check the box to enable DHCP server on the VLAN 10 interface
+   - **Address Pool Range**: 192.168.10.110 - 192.168.10.119
+   - **DNS Servers**: 192.168.10.1
+   - **Gateway**: 192.168.10.1
+3. Click **Save** at the bottom
+3. Click **Apply Changes** at the top
+
 ### Open firewall to allow traffic
 By default, pfSense firewall will not allow traffic through the firewall.
 
