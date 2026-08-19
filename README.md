@@ -207,7 +207,7 @@ Now configure the 2nd network interface
 
 | VM                      | Int 1 VLAN  | Int 1 IP Address  | Int 2 VLAN  | Int 2 IP Address  | Int 2 Gateway   |
 |-------------------------|-------------|-------------------|-------------|-------------------|-----------------|
-| Radiology Workstation   | 5           | 192.168.5.110/24  | 10          | 192.168.10.110/24 | 192.168.10.1    |
+| Radiology Workstation   | 5           | 192.168.5.110/24  | 10          | DHCP              | DHCP            |
 | Web Services            | 5           | 192.168.5.120/24  | 20          | 192.168.20.120/24 | 192.168.20.1    |
 | Database Services       | 5           | 192.168.5.130/24  | 30          | 192.168.30.130/24 | 192.168.30.1    |
 
