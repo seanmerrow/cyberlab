@@ -176,7 +176,7 @@ By default, pfSense firewall will not allow traffic through the firewall.
    - **Action**: pass
    - **Interface**: vlan10
    - **Address Family**: IPv4
-   - **Protocol**: TCP
+   - **Protocol**: TCP  (change this to Any if you want more than just TCP to be allowed)
    - **Source**: Any
    - **Destination**: Any
 3. Click **Apply Changes**
