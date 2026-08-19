@@ -1,7 +1,7 @@
 # cyberlab
 Cyber lab on Proxmox
 
-![Cyber lab architecture](assets/images/arch.png)
+![Cyber lab architecture](assets/images/cyberlab-arch.png)
 
 ## Proxmox installation
 1. [Download](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso) the **Proxmox VE 9.2 ISO Installer** image (ie. `proxmox-ve_9.2-1.iso`)
