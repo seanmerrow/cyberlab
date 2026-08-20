@@ -1,7 +1,7 @@
 # Cyber Lab
 The best way to learn about cyber security and networking is to play with it, and in order to play with it, you need a lab. This project will help you build that lab. It will allow you to have the following components, all in a single physical node.
 
-- Open vSwitch (OVS) is software defined layer-s switch, with VLAN support.
+- Open vSwitch (OVS) is software defined layer-2 switch, with VLAN support.
 - Virtualized router/firewall with pfSense
 - Virtualized Radiology workstation 
 - Virtualized Web server
