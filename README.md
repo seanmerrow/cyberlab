@@ -115,7 +115,7 @@ Now configure the networking interfaces
 4. Click **Install**
 5. Click **OK**
 6. Select your WAN interface. This is the Internet-facing interface of the router. You can click back to the **Hardware** page to see the MAC address of the interface in VLAN 40, then select that interface back in the console. If your Internet interface will use DHCP to get an address, leave it at the default. Otherwise set the static IP information as needed. This is not a trunk interface, so leave VLAN tagging disabled.
-8. Select your LAN interface. This is the OOB management interface of the router. Set the static IP address and mask (ie. `192.168.5.1/24`). Leave DHCP enabled and create a pool of addresses to lease to hosts on the network (ie. **Start**: `192.168.5.110`, **End**: `192.168.5.119`)
+8. Select your LAN interface. This is the OOB management interface of the router. Set the static IP address and mask (ie. `192.168.5.1/24`). Make sure DHCP is disabled.
 9. Confirm the LAN and WAN interfaces and **Continue**. It will need Internet connectivity over the WAN interface.
 10. Select **Install CE**
 11. Select **Continue** at the screen for filesystem type and partitions, then select **OK**, then **OK**
