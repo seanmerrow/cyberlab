@@ -133,7 +133,7 @@ You should now be able to access the pfSense GUI by pointing your browser to the
 
 Run through the initial configuration wizard:
 
-- **Hostname**: pfsense (of some other name of your choosing, such as `router` or `firewall`)
+- **Hostname**: pfsense (or some other name of your choosing, such as `router`, `firewall`, `router-firewall`)
 - **Domain**: cyberlab.com
 - Leave DNS configurations as is
 - **Time server hostname**: leave at default or use `north-america.pool.ntp.org`
