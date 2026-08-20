@@ -432,9 +432,15 @@ The Patient Records Viewer webapp will run on the web server, and serve as the f
 1. SSH to the web server: ssh smerrow@192.168.5.120
 2. Clone the cyberlab repo into the workstation
 ```
-git clone git@github.com:skeymerrow/cyberlab.git
+git clone https://github.com/skyemerrow/cyberlab.git
 ```
+3. Copy the required files into the `/opt` directory
+```bash
+# Change into the webapp directory
+cd cyberlab/app
 
-
+# Copy all files, including hidden files, into the /opt directory (hidden files have a filename that starts with .)
+sudo cp -a . /opt/
+```
 
 
