@@ -1,5 +1,31 @@
-# cyberlab
-Cyber lab on Proxmox
+# Cyber Lab
+The best way to learn about cyber security and networking is to play with it, and in order to play with it, you need a lab. This project will help you build that lab. It will allow you to have the following components, all in a single physical node.
+
+- Open vSwitch (OVS) is software defined layer-s switch, with VLAN support.
+- Virtualized router/firewall with pfSense
+- Virtualized Radiology workstation 
+- Virtualized Web server
+- Virtualized Database server
+- Security Onion virtual appliance (IDS, ELK stack, OSquery, etc.)
+
+Each endpoint is on its own VLAN and IP network, while the router will route traffic between the networks, serve DNS and DHCP, and secure the traffic via the firewall features.
+
+## Hardware requirements
+This lab was built on a single bare-metal server with the following resources:
+
+- 20 core Intel processor
+- 32 GB of memory
+- 512 GB of storage
+- Dual network interfaces
+
+The second network interface is not a requirement. In this lab, we'll use NIC 1 for Internet access and NIC 2 for an OOB (out-of-band) management network. The OOB network is not required, but good to have so that you can always reach each device, even if traffic in the virtual network is disrupted.
+
+During initial configuration of the bare-metal host, you'll also want the following:
+
+- External monitor with the correct cable (DVI, HDMI, etc.)
+- Wireless keyboard and mouse. Just plugin in the USB connector to one of the ports.
+
+## Cyber lab architecture
 
 ![Cyber lab architecture](assets/images/cyberlab-arch.png)
 
