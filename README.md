@@ -431,16 +431,78 @@ The Patient Records Viewer webapp will run on the web server, and serve as the f
 
 1. SSH to the web server: ssh smerrow@192.168.5.120
 2. Clone the cyberlab repo into the workstation
-```
+```bash
 git clone https://github.com/skyemerrow/cyberlab.git
 ```
-3. Copy the required files into the `/opt` directory
+3. Copy the required files into the `/opt/patient-records` directory
 ```bash
 # Change into the webapp directory
 cd cyberlab/app
 
-# Copy all files, including hidden files, into the /opt directory (hidden files have a filename that starts with .)
-sudo cp -a . /opt/
+# Create a directory for the patient-records app
+sudo mkdir /opt/patient-records
+
+# Copy all files, including hidden files, into the /opt/patient-records directory (hidden files have a filename that starts with .)
+sudo cp -a . /opt/patient-records
 ```
+4. Install Node.js and npm (node package manager)
+```bash
+sudo dnf install -y nodejs npm
+```
+5. Install the MariaDB client packages
+```bash
+sudo dnf install -y mariadb
+```
+6. Make sure TCP port 3000 is open in the local firewall to allow connectivity from other workstations that want to view patient records. You may see a warning that this is already done.
+```bash
+sudo firewall-cmd --permanent --add-port=3000/tcp
+sudo firewall-cmd --reload
+```
+### Configure the Patient Records Viewer webapp
+The webapp will need to know where the host on which the database resides, how to connect to it, the database to use and the credentials to use for authentication by the database server. This will be configured in the `.env` hidden file.
+
+1. Change into the webapp project directory
+```bash
+cd /opt/patient-records
+```
+
+2. Install the Node.js dependencies
+```
+npm install
+```
+
+3. Create the `.env` file by making a copy of the `.env.example` file to store environment variables
+```bash
+# Create the .env file
+cp .env.example .env
+```
+
+4. Use `nano` or `vi` to edit the `.env` file and set the variables
+```text
+# MariaDB Connection
+DB_HOST=database.cyberlab.com
+DB_PORT=3306
+DB_USER=med_app_user
+DB_PASSWORD=cyberisfun
+DB_NAME=patient_sim_db
+
+# App Settings
+APP_PORT=3000
+SESSION_SECRET=asdnfaoifasdfjajasdfaf
+
+# Login Credentials
+APP_USERNAME=smerrow
+APP_PASSWORD=cyberisfun
+```
+
+### Start the Patient Records Viewer webapp
+When you start the webapp, it will be available on port TCP port 3000 on all of its interfaces
+```bash
+npm start
+```
+
+You can test your webapp by going to [http://192.168.5.120:3000](http://192.168.5.120:3000) in your browser. If everything is working, including connectivity from the webapp to the database, then you should be able to view patient records!
+
+
 
 
