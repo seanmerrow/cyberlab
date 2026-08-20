@@ -32,7 +32,7 @@ During initial configuration of the bare-metal host, you'll also want the follow
 ## Proxmox installation
 1. [Download](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso) the **Proxmox VE 9.2 ISO Installer** image (ie. `proxmox-ve_9.2-1.iso`)
 2. [Copy it to a bootable thumb drive](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html#_instructions_for_windows)
-3. Boot the server to that drive to install Proxmox as the hypervisor
+3. Boot the server to that drive to [install](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html) Proxmox as the hypervisor
 4. [Log in](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html#_instructions_for_windows) to the Proxmox management interface
 
 
