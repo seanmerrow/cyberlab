@@ -58,20 +58,6 @@ The app connects to a MariaDB database. If the database is on a separate server,
 sudo dnf install -y mariadb
 ```
 
-If the database will run on the same machine:
-
-```bash
-sudo dnf install -y mariadb-server
-sudo systemctl enable --now mariadb
-sudo mysql_secure_installation
-```
-
-Then load the schema:
-
-```bash
-mysql -u root -p < /opt/patient-records/patients_schema.sql
-```
-
 ### 3. Firewall (if accessing from other machines)
 
 ```bash
@@ -82,9 +68,9 @@ sudo firewall-cmd --reload
 ## Setup
 
 ### 1. Install Node.js dependencies
+Run this command in the directory containing the `package.json` file.
 
 ```bash
-cd /opt/patient-records
 npm install
 ```
 
@@ -97,7 +83,7 @@ cp .env.example .env
 Edit `.env` with your actual values:
 
 ```
-DB_HOST=localhost          # or the IP of your MariaDB server
+DB_HOST=database.cyberlab.com          # or the IP of your MariaDB server
 DB_PORT=3306
 DB_USER=root
 DB_PASSWORD=your_password
