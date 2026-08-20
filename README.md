@@ -194,6 +194,28 @@ Client workstations, such as the Radiology workstation, does not require a stati
 3. Click **Save** at the bottom
 3. Click **Apply Changes** at the top
 
+### Enable DNS
+For nodes, such as the workstations, web servers and database servers to communicate with each other, they will either need the IP address of the node they want to communicate with or their FQDN (fully qualified domain name). They are are using the FQDN, then there will need to be a DNS server that can resolve the FQDN-to-IP mapping. 
+
+1. In pfSense, go to **Services** --> **DNS Resolver**
+   - **Enable DNS resolver** box is checked
+   - **Network Interfaces**: All
+   - **DHCP Registration**: Check this box (DHCP client names will be added)
+3. In the **Host Overrides** section, click **Add**
+   - **Host**: webserver
+   - **Domain**: cyberlab.com
+   - **IP Address**: 192.168.20.120
+   - **Description**: Web server
+   - Click **Save**
+4.  In the **Host Overrides** section, click **Add**
+   - **Host**: database
+   - **Domain**: cyberlab.com
+   - **IP Address**: 192.168.30.130
+   - **Description**: Database server
+   - Click **Save**
+5. Click the **Save** button just above the **Host Overrides** section
+6. Click **Apply Changes**
+
 ### Open firewall to allow traffic
 By default, pfSense firewall will not allow traffic through the firewall.
 
@@ -231,13 +253,13 @@ Now configure the 2nd network interface
 
 ### Server and workstation interface VLANs and IP configuration
 
-| VM                      | Int 1 VLAN  | Int 1 IP Address  | Int 2 VLAN  | Int 2 IP Address  | Int 2 Gateway   |
-|-------------------------|-------------|-------------------|-------------|-------------------|-----------------|
-| Radiology Workstation   | 5           | 192.168.5.110/24  | 10          | DHCP              | DHCP            |
-| Web Services            | 5           | 192.168.5.120/24  | 20          | 192.168.20.120/24 | 192.168.20.1    |
-| Database Services       | 5           | 192.168.5.130/24  | 30          | 192.168.30.130/24 | 192.168.30.1    |
+| VM                      | Int 1 VLAN  | Int 1 IP Address  | Int 2 VLAN  | Int 2 IP Address  | Int 2 Gateway & DNS Server  |
+|-------------------------|-------------|-------------------|-------------|-------------------|-----------------------------|
+| Radiology Workstation   | 5           | 192.168.5.110/24  | 10          | DHCP              | DHCP                        |
+| Web Services            | 5           | 192.168.5.120/24  | 20          | 192.168.20.120/24 | 192.168.20.1                |
+| Database Services       | 5           | 192.168.5.130/24  | 30          | 192.168.30.130/24 | 192.168.30.1                |
 
-### Start the server and workstation VM
+### Start the server or workstation VM
 
 1. Click the **Start** button at the top of the screen
 2. Click on **Console** so you can see the VM boot and enter the configuration menu
@@ -258,7 +280,7 @@ Go through the installation wizard.
      - Change the method to Manual.
      - Click the **Add** button.
      - Enter `192.168.x.x` for the address and `24` for the netmask. Enter `192.168.x.1` for the Gateway.
-     - Enter `8.8.8.8` for the DNS servers
+     - For the **DNS Servers**, enter the same IP address used for the gateway (ie. `192.168.x.1`)
      - Click **Save**
    - In the **Host Name** box, enter a hostname for the VM (ie. `radiology`, `webserver`, `database`), then click **Apply**
    - Click **Done**
@@ -291,12 +313,12 @@ The database server will run MariaDB, which will hold a database of patient reco
 
 ### Prerequisite
 1. A Fedora Workstation VM has been created following the instructions in [Server and workstation installation](#server-and-workstation-installation)
-2. The VM should have the first interface in VLAN 5 and the second interface in VLAN 30, with IP addressing configured as per the [Server and workstation interface VLANs and IP configuration](#server-and-workstation-interface-vlans-and-ip-configuration)
+2. The VM should have the first interface in `VLAN 5` and the second interface in `VLAN 30`, with IP addressing configured as per the [Server and workstation interface VLANs and IP configuration](#server-and-workstation-interface-vlans-and-ip-configuration)
 
 ### Create the database
 1. SSH into the database VM IP address.
 ```
-ssh smerrow@192.168.30.130
+ssh smerrow@192.168.5.130
 ```
 2. Update packages on the VM, and install MariaDB. Then start the database service and set it to start any time the VM boots up.
 ```
@@ -398,13 +420,20 @@ python seed_patients.py
 The database is now ready to be accessed on port 3306 by a web server or database management tool.
 
 ## Web server
-The web server will run a web service and serve as the front end graphical user interface (GUI). It will connect to the backend database server to allow the viewing of patient records in a web browswer. 
+The web server will run a Node.js web service and serve as the front end graphical user interface (GUI). It will connect to the backend database server to allow the viewing of patient records in a web browser. 
 
 ### Prerequisite
 1. A Fedora Workstation VM has been created following the instructions in [Server and workstation installation](#server-and-workstation-installation)
 2. The VM should have the first interface in VLAN 5 and the second interface in VLAN 20, with IP addressing configured as per the [Server and workstation interface VLANs and IP configuration](#server-and-workstation-interface-vlans-and-ip-configuration)
 
-### Create the database
+### Install the Patient Records Viewer webapp
+The Patient Records Viewer webapp will run on the web server, and serve as the front end to view the patient records stored in the database server. The webapp is in the `/app` directory of this repository.
+
+1. SSH to the web server: ssh smerrow@192.168.5.120
+2. Clone the cyberlab repo into the workstation
+```
+git clone git@github.com:skeymerrow/cyberlab.git
+```
 
 
 
