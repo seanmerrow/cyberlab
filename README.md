@@ -84,7 +84,7 @@ Before you get started, you'll want to cable up the network as shown in the diag
 1. [Download](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso) the **Proxmox VE 9.2 ISO Installer** image (ie. `proxmox-ve_9.2-1.iso`)
 2. [Copy it to a bootable thumb drive](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html#_instructions_for_windows)
 3. Boot the server to that drive to [install](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html) Proxmox as the hypervisor
-   - Configure NIC 2 as your Interface facing port, and set it to use DHCP to acquire it's IP configuration from your Wi-fi router.
+   - Configure NIC 1 as your Interface facing port, and set it to use DHCP to acquire it's IP configuration from your Wi-fi router.
    - From the Proxmox host's console, you can find the IP address assigned to it with the command `ip a`
 5. [Log in](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html#_instructions_for_windows) to the Proxmox management interface
 
