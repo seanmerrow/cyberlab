@@ -500,9 +500,56 @@ When you start the webapp, it will be available on port TCP port 3000 on all of 
 ```bash
 npm start
 ```
-
 You can test your webapp by going to [http://192.168.5.120:3000](http://192.168.5.120:3000) in your browser. If everything is working, including connectivity from the webapp to the database, then you should be able to view patient records!
 
+### Running the web app as a System Service
 
+To make the web app start automatically on boot (and restart if it crashes), create a systemd service:
 
+1. Create a dedicated user (optional but recommended)
+
+```bash
+# Create the dedicated user for the app
+sudo useradd -r -s /sbin/nologin patientapp
+
+# Set the web app project folder to be owned by the new user
+sudo chown -R patientapp:patientapp /opt/patient-records
+```
+
+2. Create the service file
+
+```bash
+sudo tee /etc/systemd/system/patient-records.service > /dev/null << 'EOF'
+[Unit]
+Description=Patient Records Viewer
+After=network.target
+
+[Service]
+Type=simple
+User=patientapp
+WorkingDirectory=/opt/patient-records
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+3. Enable and start the service
+
+```bash
+# Restart the service
+sudo systemctl daemon-reload
+
+# Start the web app and set it to start when the web server boots up
+sudo systemctl enable --now patient-records
+```
+
+4. Check status
+
+```bash
+sudo systemctl status patient-records
+```
 
