@@ -168,13 +168,13 @@ Now configure the networking interfaces
 4. Click **Install**
 5. Click **OK**
 6. Select your WAN interface. This is the Internet-facing interface of the router. You can click back to the **Hardware** page to see the MAC address of the interface in VLAN 40, then select that interface back in the console. If your Internet interface will use DHCP to get an address, leave it at the default. Otherwise set the static IP information as needed. This is not a trunk interface, so leave VLAN tagging disabled.
-8. Select your LAN interface. This is the OOB management interface of the router. Set the static IP address and mask (ie. `192.168.5.1/24`). Make sure DHCP is disabled.
-9. Confirm the LAN and WAN interfaces and **Continue**. It will need Internet connectivity over the WAN interface.
-10. Select **Install CE**
-11. Select **Continue** at the screen for filesystem type and partitions, then select **OK**, then **OK**
-12. For the 'Version of pfSense CE to install', select the **Current stable version**, click **OK**
-13. Click **OK** when the installation is complete, then select **Reboot**
-14. Select `3` to reset the admin account and set the password
+7. Select your LAN interface. This is the OOB management interface of the router. Set the static IP address and mask (ie. `192.168.5.1/24`). Make sure DHCP is disabled.
+8. Confirm the LAN and WAN interfaces and **Continue**. It will need Internet connectivity over the WAN interface.
+9. Select **Install CE**
+10. Select **Continue** at the screen for filesystem type and partitions, then select **OK**, then **OK**
+11. For the 'Version of pfSense CE to install', select the **Current stable version**, click **OK**
+12. Click **OK** when the installation is complete, then select **Reboot**
+13. Select `3` to reset the admin account and set the password
 
 ### Configure pfSense
 
@@ -182,7 +182,7 @@ You should now be able to access the pfSense GUI by pointing your browser to the
 
 - **URL**: https://<lan_interface_ip>  (ie. https://192.168.5.1)
 - **Login**: `admin`
-- **Password**: the password you set in step 14 above
+- **Password**: the password you set in step 13 above
 
 Run through the initial configuration wizard:
 
