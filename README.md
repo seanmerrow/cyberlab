@@ -206,6 +206,10 @@ For nodes, such as the workstations, web servers and database servers to communi
    - **Domain**: cyberlab.com
    - **IP Address**: 192.168.20.120
    - **Description**: Web server
+   - In the **Additional Names for this Host** section add an additional name
+   - **Host name**: patients
+   - **Domain**: cyberlab.com
+   - **Description**: Patient records app
    - Click **Save**
 4.  In the **Host Overrides** section, click **Add**
    - **Host**: database
@@ -555,3 +559,18 @@ sudo systemctl enable --now patient-records
 sudo systemctl status patient-records
 ```
 
+## Radiology workstation
+The workstation is used by personnel in the Radiology department to view patient records in a web browser. 
+
+### Prerequisite
+1. A Fedora Workstation VM has been created following the instructions in [Server and workstation installation](#server-and-workstation-installation)
+2. The VM should have the first interface in VLAN 5 and the second interface in VLAN 10, with IP addressing configured as per the [Server and workstation interface VLANs and IP configuration](#server-and-workstation-interface-vlans-and-ip-configuration)
+
+### Viewing patient records
+Users of the Radiology workstation can use the Firefox web browser, which is preinstalled, to view patient records. 
+
+1. Open the Radiology workstation Console from within the Proxmox GUI
+2. Log in to the workstation
+3. Click on the small oval in the upper left of the workstations desktop screen
+4. Click on the **Firefox** icon at the bottom of the screen
+5. Enter the following URL in the browser bare:  [http://patients.cyberlab.com:3000](http://patients.cyberlab.com:3000)
