@@ -13,6 +13,7 @@ Each endpoint is on its own VLAN and IP network, while the router will route tra
 ## Table of Contents
 - [Hardware requirements](#hardware-requirements)
 - [Cyber lab architecture](#cyber-lab-architecture)
+- [Configure your workstation](#configure-your-workstation)
 - [Proxmox installation](#proxmox-installation)
   - [Disable Proxmox Enterprise repository](#disable-proxmox-enterprise-repository)
 - [Open vSwitch](#open-vswitch)
@@ -72,11 +73,20 @@ During initial configuration of the bare-metal host, you'll also want the follow
 
 ![Cyber lab architecture](assets/images/cyberlab-arch.png)
 
+## Configure your workstation
+Before you get started, you'll want to cable up the network as shown in the diagram.
+- Connect a USB-to-Ethernet adapter to your laptop
+- Connect an Ethernet cable from your adapter to port 2 of the bare-metal host
+- In the network settings of your laptop, configure the new wired Ethernet port with the IP address of `192.168.5.99/24`. You do not need to configure a gateway or DNS server on this interface.
+- Connect an Ethernet cable from port 1 of the bare-metal host to the local network of the facility you are in (ie. local Wi-Fi router)
+
 ## Proxmox installation
 1. [Download](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso) the **Proxmox VE 9.2 ISO Installer** image (ie. `proxmox-ve_9.2-1.iso`)
 2. [Copy it to a bootable thumb drive](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html#_instructions_for_windows)
 3. Boot the server to that drive to [install](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html) Proxmox as the hypervisor
-4. [Log in](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html#_instructions_for_windows) to the Proxmox management interface
+   - Configure NIC 2 as your Interface facing port, and set it to use DHCP to acquire it's IP configuration from your Wi-fi router.
+   - From the Proxmox host's console, you can find the IP address assigned to it with the command `ip a`
+5. [Log in](https://pve.proxmox.com/pve-docs/chapter-pve-installation.html#_instructions_for_windows) to the Proxmox management interface
 
 
 ### Disable Proxmox Enterprise repository
