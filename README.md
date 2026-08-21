@@ -574,3 +574,28 @@ Users of the Radiology workstation can use the Firefox web browser, which is pre
 3. Click on the small oval in the upper left of the workstations desktop screen
 4. Click on the **Firefox** icon at the bottom of the screen
 5. Enter the following URL in the browser bare:  [http://patients.cyberlab.com:3000](http://patients.cyberlab.com:3000)
+
+## Shutting down the lab
+The safest way to shutdown the lab is to gracefully shut each node down
+
+### Shut down the workstation and servers
+These can be shut down in any order. Just log in to the desktop of each endpoint, click the top right icons and power down the VM.
+
+### Shut down the router
+This should be shut down after the endpoint nodes. Go into the pfSense console, and select `6` to halt the system.
+
+### Shut down the hypervisor
+In the Proxmox GU, select the hypervisor, then click on the **Shutdown** button in the top right.
+
+> [!IMPORTANT]
+> Wait for the power light to go out on the front of the host before unplugging it.
+
+## Starting up the lab
+You may want to connect a monitor, keyboard and mouse to the hypervisor, but it is not necessary. Just hit the power button on the physical server. Afer it comes up, you should be able to connect to the hypervisor's interface in the OOB network in VLAN 5, which is `192.168.5.5`. If the VLAN 40 interface got the same IP address from DHCP, then you can re-connect to that interface as well.
+
+### Start the router
+This should be started and running before the endpoint nodes. Click on the `router-firewall` VM in Proxmox, then click on the **Start** button in the top right.
+
+### Start the workstation and servers
+These can be started in any order. Click on each of the three endpoint VMs in Proxmox, then click on the **Start** button in the top right for each of them.
+
