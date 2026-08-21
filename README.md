@@ -502,6 +502,8 @@ npm start
 ```
 You can test your webapp by going to [http://192.168.5.120:3000](http://192.168.5.120:3000) in your browser. If everything is working, including connectivity from the webapp to the database, then you should be able to view patient records!
 
+Enter CTRL+c to exit the web app after you've confirmed it is working.
+
 ### Running the web app as a System Service
 
 To make the web app start automatically on boot (and restart if it crashes), create a systemd service:
