@@ -66,7 +66,7 @@ The second network interface is not a requirement. In this lab, we'll use NIC 1 
 During initial configuration of the bare-metal host, you'll also want the following:
 
 - External monitor with the correct cable (DVI, HDMI, etc.)
-- Wireless keyboard and mouse. Just plugin in the USB connector to one of the ports.
+- Wireless keyboard and mouse. Just plug in the USB connector to one of the ports.
 
 ## Cyber lab architecture
 
@@ -90,7 +90,7 @@ During initial configuration of the bare-metal host, you'll also want the follow
 8. Click **Add** and select the **Ceph Squid No-Subscription** repository from the dropdown menu, then click **Add** again
 
 ## Open vSwitch
-By default, Proxmox will use Linux bridge for networking. This section will help you install and configure Open vSwitch, which is needed for more advanced networking features, just as port mirroring.
+By default, Proxmox will use Linux bridge for networking. This section will help you install and configure Open vSwitch, which is needed for more advanced networking features, such as port mirroring.
 
 ### Add Open vSwitch
 Install openvswitch on the Proxmox host.
