@@ -331,12 +331,12 @@ Go through the installation wizard.
    - Click on the first interface, then click **Configure...**. On the **IPv4 Settings** tab, set as follows:
      - Change the method to Manual.
      - Click the **Add** button.
-     - Enter `192.168.5.x` for the address and `24` for the netmask. Do not enter a gateway address.
+     - Enter `192.168.5.x` for the address and `24` for the netmask. Do not enter a gateway address. Use the IP configuration table above.
      - Click **Save**
    -  Click on the second interface, then click **Configure...**. On the **IPv4 Settings** tab, set as follows:
      - Change the method to Manual.
      - Click the **Add** button.
-     - Enter `192.168.x.x` for the address and `24` for the netmask. Enter `192.168.x.1` for the Gateway.
+     - Enter `192.168.x.x` for the address and `24` for the netmask. Enter `192.168.x.1` for the Gateway. Use the IP configuration table above.
      - For the **DNS Servers**, enter the same IP address used for the gateway (ie. `192.168.x.1`)
      - Click **Save**
    - In the **Host Name** box, enter a hostname for the VM (ie. `radiology`, `webserver`, `database`), then click **Apply**
